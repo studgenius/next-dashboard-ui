@@ -11,7 +11,7 @@ export default function DashboardLayout({
     return (
         <div className="h-screen flex">
             {/* LEFT SIDEBAR */}
-            <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%] p-6">
+            <div className="w-[14%] md:w-[8%] lg:w-[16%] xl:w-[14%] p-4">
                 {/* Logo & Title */}
                 <Link
                     href="/"
@@ -22,7 +22,7 @@ export default function DashboardLayout({
                         width={32}
                         height={32}
                     />
-                    <span className="hidden lg:block font-semibold text-lg">
+                    <span className="hidden lg:block font-bold text-lg">
                         Dibie School
                     </span>
                 </Link>
