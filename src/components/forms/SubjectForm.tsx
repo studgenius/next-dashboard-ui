@@ -5,17 +5,18 @@ import { useForm } from "react-hook-form";
 import InputField from "../InputField";
 import Image from "next/image";
 
-const stringArray = z.array(z.string());
-
 const schema = z.object({
-    name: z.string().min(5, { message: "Invalid subject name!" }),
-    code: z.string().min(8, { message: "Required!" }),
-    teachers: z
-        .array(z.string())
-        .min(2) // must contain 2 or more items
-        .max(5) // must contain 5 or fewer items
-});
+    username: z
+        .string()
+        .min(3, { message: 'Username must be at least 3 characters long!' })
+        .max(20, { message: 'Username must be at most 20 characters long!' }),
+    email: z.string().email({ message: "Invalid emaild address!" }),
+    password: z.string().min(8, { message: "Password must be at least 8 characters long!" }),
 
+    subjectName: z.string().min(1, { message: "Subject Name is required!" }),
+    code: z.string().min(1, { message: "Code is required!" }),
+    teachers: z.array(z.string()).max(5, { message: "Teachers' Name(s) is required!" }),
+});
 
 type Inputs = z.infer<typeof schema>;
 
@@ -41,17 +42,45 @@ const SubjectForm = ({
 
     return (
         <form className="flex flex-col gap-8" onSubmit={onSubmit}>
-            <h1 className="text-xl semi-bold">Create a Subject</h1>
+            <h1 className="text-xl semi-bold">Create a New Teacher</h1>
             <span className="text-xs text-gray-400 font-medium">
-                Subject Information
+                Authentication Information
+            </span>
+            <div className="flex justify-between flex-wrap gap-4">
+                <InputField
+                    label="Username"
+                    name="username"
+                    defaultValue={data?.username}
+                    register={register}
+                    error={errors?.username}
+                />
+                <InputField
+                    label="Email"
+                    name="email"
+                    type="email"
+                    defaultValue={data?.email}
+                    register={register}
+                    error={errors?.email}
+                />
+                <InputField
+                    label="Password"
+                    name="password"
+                    type="password"
+                    defaultValue={data?.password}
+                    register={register}
+                    error={errors?.password}
+                />
+            </div>
+            <span className="text-xs text-gray-400 font-medium">
+                Subject Name Information
             </span>
             <div className="flex justify-between flex-wrap gap-4">
                 <InputField
                     label="Subject Name"
-                    name="name"
-                    defaultValue={data?.name}
+                    name="subjectName"
+                    defaultValue={data?.subjectName}
                     register={register}
-                    error={errors?.name}
+                    error={errors?.subjectName}
                 />
                 <InputField
                     label="Code"
